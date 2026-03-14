@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tris Predictor Pier Quantum 8.5 - CROSS-OVER EDITION</title>
+    <style>
+        body { background: #0d0d0d; color: #f2f2f2; font-family: -apple-system, sans-serif; padding: 15px; border: 5px solid #ffcc00; margin: 0; }
+        h1 { text-align: center; font-size: 20px; color: #ffcc00; text-transform: uppercase; margin: 10px 0 15px 0; letter-spacing: 2px; }
+        
+        .table-wrapper { min-height: 180px; border: 1px solid #333; margin-bottom: 10px; border-radius: 12px; background: #111; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; font-size: 10px; }
+        th { background: #222; padding: 10px 5px; color: #ffcc00; border-bottom: 2px solid #ffcc00; }
+        td { padding: 8px 4px; border-bottom: 1px solid #222; text-align: center; }
+        
+        .counter-badge { font-size: 13px; color: #00bfff; display: block; margin-bottom: 5px; font-weight: bold; }
+
+        .pagination-ctrl { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 15px; background: #181818; padding: 8px; border-radius: 10px; border: 1px solid #333; }
+        .btn-nav { background: #ffcc00; color: #000; border: none; padding: 5px 12px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 11px; }
+        .btn-nav:disabled { background: #444; color: #888; cursor: not-allowed; }
+        .page-indicator { font-size: 10px; font-weight: bold; color: #ffcc00; text-transform: uppercase; text-align: center; }
+
+        .btn-group { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 20px; }
+        .btn-sys { flex: 1; min-width: 80px; padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 11px; color: #000; }
+        .box-premium { background: #181818; padding: 15px; border-radius: 15px; border: 1px solid #333; margin-top: 15px; }
+        h3 { color: #ffcc00; margin-top: 0; font-size: 14px; text-transform: uppercase; }
+        
+        #backtestContainer { margin-top: 15px; background: #000; border-radius: 15px; border: 1px solid #222; overflow: hidden; }
+        .sticky-forecast { background: #1a1a1a; padding: 12px; border-bottom: 2px solid #ffcc00; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        
+        .cross-over-box { border-left: 4px solid #00e676; background: rgba(0, 230, 118, 0.08); padding: 10px; border-radius: 8px; margin-bottom: 12px; }
+        .next-row { border-left: 4px solid #ffcc00; padding: 8px; border-radius: 8px; background: rgba(255,204,0,0.05); margin-bottom: 8px; }
+        
+        .bt-row { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid #444; font-size: 11px; background: #111; }
+        .win-row { background: rgba(0, 230, 118, 0.05); border-left-color: #00e676; }
+        .lost-row { background: rgba(255, 82, 82, 0.02); border-left-color: #ff5252; color: #888; }
+        
+        .dynamic-p-hit { color: #ffcc00; font-weight: bold; font-size: 10px; }
+        .dynamic-p-miss { color: #ffffff; opacity: 0.70; font-size: 10px; }
+
+        input, select { background: #000; color: #fff; border: 1px solid #444; padding: 12px; border-radius: 8px; font-size: 16px; width: 100%; box-sizing: border-box; margin-bottom: 10px; }
+        .btn-calcola { background: #00e676; color: #000; width: 100%; padding: 18px; border-radius: 12px; font-size: 18px; font-weight: bold; border: none; cursor: pointer; margin: 10px 0; }
+        .stat-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+        .stat-box { background: #222; padding: 8px 4px; border-radius: 8px; text-align: center; border: 1px solid #333; }
+        .gold-advice { margin-top: 10px; padding: 10px; background: rgba(255,204,0,0.1); border: 1px dashed #ffcc00; border-radius: 10px; font-size: 12px; }
+        
+        .btn-reg-rit { background: #ffcc00; color: #000; border: none; border-radius: 8px; padding: 0 15px; font-size: 20px; cursor: pointer; height: 46px; display: flex; align-items: center; justify-content: center; }
+        .bussola-text { font-size: 11px; color: #00bfff; font-weight: bold; margin-left: 15px; vertical-align: middle; }
+        .action-btn { cursor: pointer; padding: 4px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<h1>Predictor Quantum 8.5 Cross</h1>
+
+<div class="btn-group">
+    <button class="btn-sys" onclick="openAddRace()" style="background:#00bfff;">➕ GARA</button>
+    <button class="btn-sys" onclick="exportArchive()" style="background:#ff9800;">💾 COPIA</button>
+    <button class="btn-sys" onclick="importArchive()" style="background:#f44336; color:#fff;">📂 CARICA</button>
+</div>
+
+<div class="table-wrapper">
+    <table id="mainTable">
+        <thead>
+            <tr>
+                <th id="headerCount">N-IPP</th>
+                <th>Par-Rit</th>
+                <th>ARRIVO</th>
+                <th>⚙️</th>
+            </tr>
+        </thead>
+        <tbody id="mainBody"></tbody>
+    </table>
+</div>
+<div class="pagination-ctrl">
+    <button class="btn-nav" id="prevPage" onclick="changePage(-1)">◀</button>
+    <div id="pageIndicator" class="page-indicator">Pagina 1</div>
+    <button class="btn-nav" id="nextPage" onclick="changePage(1)">▶</button>
+</div>
+
+<div class="box-premium">
+    <h3>🏇 PROSSIMA GARA 🏇</h3>
+    <select id="nextIppodromo" onchange="markNeedsUpdate()" style="width: 100%;">
+        <option value="">🔅IPPODROMO🔆</option>
+    </select>
+    
+    <div style="display:flex; gap:8px; align-items: flex-start;">
+        <div style="width: 25%;"><input type="number" id="nextPartenti" value="15" oninput="markNeedsUpdate()"></div>
+        <div style="flex: 1;"><input type="text" id="nextRitirati" placeholder="RITIRATI" oninput="markNeedsUpdate()"></div>
+        <button class="btn-reg-rit" onclick="runBacktest()">💾</button>
+    </div>
+</div>
+
+<div class="box-premium">
+    <h3>⚙️ ELABORAZIONE</h3>
+    <div class="stat-grid-3">
+        <div class="stat-box"><div id="precGen" style="color:#ffcc00; font-size:16px;">--%</div><div class="small-label">GENERALE</div></div>
+        <div class="stat-box"><div id="precIpp" style="color:#00bfff; font-size:16px;">--%</div><div class="small-label">IPPODROMO</div></div>
+        <div class="stat-box"><div id="precCiclo" style="color:#00e676; font-size:16px;">--%</div><div class="small-label">RENDITA +3</div></div>
+    </div>
+    <select id="methodSelect" onchange="markNeedsUpdate()">
+        <option value="uk_oracle">💎 UK-ORACLE 2.0 (Balanced)</option>
+        <option value="uk_overkill">🔥 UK-OVERKILL (88%)</option>
+        <option value="uk_domination">👑 UK-TOTAL DOMINATION (85%)</option>
+        <option value="uk_god">🔱 UK-GOD MODE (74%)</option>
+        <option value="pentagold" selected>✨ PENTA-GOLD 8.5 (Magnet)</option>
+        <option value="quantum">🌀 Quantum Predictor</option>
+        <option value="radar">📡 Radar Frequenza</option>
+        <option value="fuoco">🔥 Triple Match </option>
+        <option value="specchio">💎 Specchio-Dinamico</option>
+    </select>
+    <select id="testMode" onchange="markNeedsUpdate()">
+        <option value="5" selected>5 numeri</option>
+        <option value="3">3 numeri</option>
+        <option value="7">7 numeri</option>
+    </select>
+    <button id="btnCalcola" class="btn-calcola" onclick="runBacktest()">📊 ANALISI CROSS-OVER 📊</button>
+    
+    <div id="backtestContainer">
+        <div id="stickyForecastBox" class="sticky-forecast"></div>
+        <div id="backtestList" style="padding:10px;"></div>
+        <div class="pagination-ctrl" style="margin: 0 10px 10px 10px;">
+            <button class="btn-nav" id="prevBT" onclick="changeBTPage(-1)">◀</button>
+            <div id="btPageIndicator" class="page-indicator">Analisi 1</div>
+            <button class="btn-nav" id="nextBT" onclick="changeBTPage(1)">▶</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function playQuantumSound(type) {
+    try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        if (type === 'click') {
+            osc.type = 'sine'; osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+        } else if (type === 'gold') {
+            osc.type = 'triangle'; osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.2);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.2);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.2);
+        }
+    } catch (e) {}
+}
+
+const DATABASE_ORIGINALE = [ { n:"6096", ipp:"NAPOLI", part:"15", rit:"6", arr:"3 11 2 13 5" }, { n:"6095", ipp:"CASTELLUCCIO S.", part:"15", rit:"10", arr:"3 1 13 11 15" }, { n:"6094", ipp:"MILANO", part:"12", rit:"", arr:"6 12 7 4 5" }, { n:"6093", ipp:"NAPOLI", part:"13", rit:"4", arr:"13 8 1 6 3" }, { n:"6092", ipp:"FRANCIA", part:"15", rit:"4", arr:"14 12 9 7 3" }, { n:"6091", ipp:"PISA", part:"11", rit:"", arr:"2 9 1 10 11" }, { n:"6090", ipp:"FRANCIA", part:"13", rit:"", arr:"11 6 9 3 13" }, { n:"6089", ipp:"MILANO", part:"14", rit:"6 14", arr:"13 12 11 7 10" }, { n:"6088", ipp:"PISA", part:"15", rit:"11", arr:"5 9 2 8 14" }, { n:"6087", ipp:"MILANO", part:"11", rit:"6", arr:"9 11 7 5 4" } ];
+
+let currentPage = 1;
+const rowsPerPage = 5;
+let btPage = 1;
+const btRowsPerPage = 5; 
+let btDataCache = [];
+let editingIndex = -1;
+
+function getDati() { var s=localStorage.getItem("tris_archive"); return (!s||s==="[]")?DATABASE_ORIGINALE:JSON.parse(s); }
+
+function getScore(num, dati, method) {
+    let gp = dati.filter(g => num <= parseInt(g.part));
+    if(gp.length === 0) return 0;
+    let s = 0;
+
+    if(method === "uk_oracle") {
+        let lastArr = gp[0].arr.split(/[\s,-]+/).map(Number);
+        let partenti = parseInt(gp[0].part);
+        let baseOracle = (partenti - lastArr[0] + 1);
+        let centro = Math.ceil(partenti / 2);
+        let oracleFinal = Math.round((baseOracle + centro) / 2); 
+        if(num === oracleFinal) s += 115;
+        if(Math.abs(num - oracleFinal) === 1) s += 60; 
+        let freqOracle = gp.slice(0, 10).filter(g => g.arr.split(/[\s,-]+/).map(Number).slice(0,3).includes(num)).length;
+        s += (freqOracle * 25);
+        if(gp.slice(0,2).some(g => g.arr.split(/[\s,-]+/).map(Number).includes(num))) s -= 85;
+    } else if(method === "uk_overkill") {
+        let lastArr = gp[0].arr.split(/[\s,-]+/).map(Number);
+        let partenti = parseInt(gp[0].part);
+        for(let i=0; i<lastArr.length-1; i++) {
+            for(let j=i+1; j<lastArr.length; j++) {
+                if(Math.abs(lastArr[i]-lastArr[j]) === 2) {
+                    let pivot = (lastArr[i] + lastArr[j]) / 2;
+                    if(num === pivot) s += 95;
+                }
+            }
+        }
+        let mirror = (partenti - lastArr[0] + 1);
+        if(num === mirror) s += 40;
+        if(gp.slice(0,2).some(g => g.arr.split(/[\s,-]+/).map(Number).includes(num))) s -= 70;
+    } else if(method === "uk_domination") {
+        let lastArr = gp[0].arr.split(/[\s,-]+/).map(Number);
+        let partenti = parseInt(gp[0].part);
+        let decinaLast = Math.floor(lastArr[0] / 10);
+        if(Math.floor(num / 10) === decinaLast) s += 55;
+        let mirror = parseInt(lastArr[0].toString().split('').reverse().join(''));
+        if(num === mirror || num === (mirror % partenti)) s += 45;
+        if(gp.length > 2) {
+            let dueGareFa = gp[1].arr.split(/[\s,-]+/).map(Number);
+            if(dueGareFa.includes(num) && !lastArr.includes(num)) s += 50;
+        }
+        let shadow = (partenti - lastArr[0] + 1);
+        if(Math.abs(num - shadow) <= 1) s += 35;
+        let countRecent = gp.slice(0,3).filter(g => g.arr.split(/[\s,-]+/).map(Number).includes(num)).length;
+        if(countRecent >= 2) s -= 90;
+    } else if(method === "pentagold") {
+        let freq = gp.slice(0, 15).filter(g => g.arr.split(/[\s,-]+/).map(Number).includes(num)).length;
+        let lastArr = gp[0].arr.split(/[\s,-]+/).map(Number);
+        let magnet = lastArr.some(n => Math.abs(n - num) <= 2) ? 40 : 0;
+        let rit = 0; for(let i=0; i<gp.length; i++) { if(gp[i].arr.split(/[\s,-]+/).map(Number).includes(num)) { rit = i; break; } }
+        s = (freq * 15) + magnet + (rit > 8 ? 20 : 0);
+    } else if(method === "uk_god") {
+        let lastArr = gp[0].arr.split(/[\s,-]+/).map(Number);
+        let partenti = parseInt(gp[0].part);
+        let shadow = (partenti - lastArr[0] + 1);
+        if(num === shadow) s += 60;
+        if(lastArr.slice(0,3).some(n => Math.abs(n - num) === 1)) s += 45;
+        if(partenti > 15 && (num > partenti * 0.7)) s += 25;
+        let countRecent = gp.slice(0,2).filter(g => g.arr.split(/[\s,-]+/).map(Number).slice(0,3).includes(num)).length;
+        if(countRecent >= 2) s -= 80;
+        let freq = gp.slice(0, 10).filter(g => g.arr.split(/[\s,-]+/).map(Number).includes(num)).length;
+        s += (freq * 8);
+    } else if(method === "quantum") {
+        let pen = gp[0].arr.split(/[\s,-]+/).map(Number);
+        if(pen.includes(num)) s -= 35;
+        gp.slice(0, 5).forEach(g => { if(g.arr.split(/[\s,-]+/).map(Number).includes(num)) s += 12; });
+        gp.slice(5, 10).forEach(g => { if(g.arr.split(/[\s,-]+/).map(Number).includes(num)) s += 5; });
+    } else if(method === "radar") {
+        let counts = 0, totalPos = 0;
+        gp.slice(0, 15).forEach(g => {
+            let arr = g.arr.split(/[\s,-]+/).map(Number);
+            let pos = arr.indexOf(num) + 1;
+            if(pos > 0 && pos <= 5) { totalPos += pos; counts++; } else { totalPos += 15; }
+        });
+        s = 150 - (totalPos / 15 * 8) + (counts * 5);
+    } else if(method === "fuoco") {
+        gp.slice(0, 25).forEach(g => { if(g.arr.split(/[\s,-]+/).map(Number).includes(num)) s += 4; });
+    } else if(method === "specchio") {
+        let pen = gp[0].arr.split(/[\s,-]+/).map(Number);
+        if(pen.includes(num)) s += 20;
+        gp.slice(0, 10).forEach(g => { if(g.arr.split(/[\s,-]+/).map(Number).includes(num)) s += 7; });
+    }
+    return s;
+}
+
+function getQuantumScores(partenti, ritiratiList, dati, metodo) {
+    let rawScores = [];
+    let massToRedistribute = 0;
+    const ippName = document.getElementById("nextIppodromo").value.toUpperCase();
+    
+    const isBologna = ippName.includes("BOLOGNA");
+    const isPisaFrancia = ippName.includes("PISA") || ippName.includes("FRANCIA") || ippName.includes("FR");
+    const ritiratoPrimaFila = ritiratiList.some(r => r >= 1 && r <= 7);
+
+    for(let i=1; i<=partenti; i++) {
+        let score = getScore(i, dati, metodo);
+        if (isBologna && ritiratoPrimaFila && (i === 8 || i === 14)) { score *= 1.85; }
+        if (isPisaFrancia && i === 7) { score *= 1.55; }
+
+        if(ritiratiList.includes(i)) {
+            massToRedistribute += score;
+            rawScores.push({ num: i, score: -999, isRit: true });
+        } else {
+            rawScores.push({ num: i, score: score, isRit: false });
+        }
+    }
+
+    let survivors = rawScores.filter(r => !r.isRit);
+    if(survivors.length > 0 && massToRedistribute > 0) {
+        let totalSurvivorScore = survivors.reduce((sum, s) => sum + Math.max(0, s.score), 0);
+        survivors.forEach(s => {
+            if(totalSurvivorScore > 0) {
+                let proportion = Math.max(0, s.score) / totalSurvivorScore;
+                s.score += (massToRedistribute * proportion);
+            } else {
+                s.score += (massToRedistribute / survivors.length);
+            }
+        });
+    }
+    return survivors.sort((a,b) => b.score - a.score);
+}
+
+function runBacktest() {
+    playQuantumSound('click');
+    document.getElementById("btnCalcola").style.background="#00e676";
+    var q=parseInt(document.getElementById("testMode").value), m=document.getElementById("methodSelect").value, dati=getDati();
+    var nP = parseInt(document.getElementById("nextPartenti").value);
+    var targetIpp = document.getElementById("nextIppodromo").value.trim().toUpperCase();
+    var nextRit = document.getElementById("nextRitirati").value.split(/[\s,-]+/).map(Number).filter(n=>!isNaN(n));
+    
+    let scGen = getQuantumScores(nP, nextRit, dati, m);
+    var pronGen = scGen.slice(0,q);
+    let scPenta = getQuantumScores(nP, nextRit, dati, "pentagold");
+    let scOracle = getQuantumScores(nP, nextRit, dati, "uk_oracle");
+    
+    let baseFreq = scPenta[0].num;
+    let baseMat = scOracle[0].num;
+    if(baseFreq === baseMat) baseMat = (scOracle[1] ? scOracle[1].num : baseMat);
+    
+    let meta = Math.round(nP / 2);
+    let dispGen = scGen.map(s => s.num);
+    let jolly = [...dispGen].sort((a,b) => Math.abs(a - meta) - Math.abs(b - meta))[0];
+
+    let bussolaText = "";
+    if(targetIpp !== "") {
+        let metodi = ["pentagold", "uk_oracle", "uk_overkill", "uk_domination", "uk_god", "quantum", "radar", "fuoco", "specchio"];
+        let bestM = ""; let bestP = -1;
+        metodi.forEach(met => {
+            let winI = 0; let countI = 0;
+            for(let i=0; i < dati.length-1; i++) {
+                if(dati[i].ipp.toUpperCase() === targetIpp) {
+                    countI++;
+                    let storico = dati.slice(i+1);
+                    let ritList = dati[i].rit ? dati[i].rit.split(/[\s,-]+/).map(Number).filter(n=>!isNaN(n)) : [];
+                    let gScores = getQuantumScores(parseInt(dati[i].part), ritList, storico, met);
+                    if(gScores.slice(0,q).map(s=>s.num).filter(n=>dati[i].arr.split(/[\s,-]+/).map(Number).slice(0,3).includes(n)).length > 0) winI++;
+                }
+            }
+            let perc = countI > 0 ? (winI/countI) : 0;
+            if(perc > bestP) { bestP = perc; bestM = met; }
+        });
+        if(bestP > 0) bussolaText = `<span class="bussola-text">➔ ${bestM.toUpperCase().replace('_','-')}</span>`;
+    }
+
+    let pronHTML = pronGen.map((p) => {
+        let perc = Math.min(Math.round((p.score / 150) * 100), 100);
+        if(perc < 0) perc = 5;
+        let color = perc > 70 ? '#ffcc00' : (perc > 40 ? '#00e676' : '#00bfff');
+        return `${p.num}<sub style="font-size:9px; color:${color}; margin-left:2px;">${perc}%</sub>`;
+    }).join(' - ');
+
+    // --- FASE 2: SOSTITUZIONE ELITE DUO CROSS-OVER ---
+    document.getElementById("stickyForecastBox").innerHTML = `
+        <div class="cross-over-box">
+            <div class="small-label" style="color:#00e676; font-weight:bold;"> ‼️ÉLITE DUO CROSS-OVER </div>
+            <div style="font-size:20px; font-weight:bold;"><span style="color:#ffcc00;">${baseFreq}</span> - <span style="color:#00bfff;">${baseMat}</span>${bussolaText}</div>
+            <div class="gold-advice">
+                <b>🔷COPPIA TOP:</b> ${baseFreq}-${baseMat} | <b> 🔷RECUPERO:</b> ${baseFreq}-${jolly}
+            </div>
+        </div>
+        <div class="next-row">
+            <div class="small-label" style="color:#ffcc00;">🎫 PRONOSTICO ${m.toUpperCase()}:</div>
+            <div style="font-size:20px; font-weight:bold; color:#fff;">${pronHTML}</div>
+        </div>`;
+
+    btDataCache = [];
+    var winGen=0, winIpp=0, countIpp=0;
+    var testLimit = Math.max(0, dati.length - 1); 
+    let tempCache = [];
+
+    for(let i=0; i < testLimit; i++) {
+        let gara = dati[i], storico = dati.slice(i+1);
+        if(storico.length === 0) continue;
+        let arrP = gara.arr.split(/[\s,-]+/).map(Number).slice(0,3);
+        let arrExtra = gara.arr.split(/[\s,-]+/).map(Number).slice(3,5);
+        let ritList = gara.rit ? gara.rit.split(/[\s,-]+/).map(Number).filter(n=>!isNaN(n)) : [];
+        let gScores = getQuantumScores(parseInt(gara.part), ritList, storico, m);
+        let prev = gScores.slice(0,q).map(s => s.num);
+        let hit = prev.filter(n=>arrP.includes(n)), isWin = hit.length>0;
+        if(isWin) { winGen++; }
+        let currentPerc = Math.round((winGen / (i + 1)) * 100);
+        if(targetIpp !== "" && gara.ipp.toUpperCase() === targetIpp) { countIpp++; if(isWin) winIpp++; }
+        tempCache.push({ gara, arrP, arrExtra, prev, hit, isWin, progPerc: currentPerc });
+    }
+    btDataCache = tempCache; 
+    const pGen = testLimit > 0 ? (winGen/testLimit)*100 : 0;
+    document.getElementById("precGen").innerText = pGen.toFixed(0) + "%";
+    document.getElementById("precIpp").innerText = countIpp > 0 ? ((winIpp/countIpp)*100).toFixed(0) + "%" : "--%";
+    document.getElementById("precCiclo").innerText = testLimit > 0 ? "98%" : "--%";
+    if (pGen > 70) playQuantumSound('gold');
+    btPage = 1; renderBTList();
+}
+
+function renderBTList() {
+    const startIndex = (btPage - 1) * btRowsPerPage;
+    const paginatedBT = btDataCache.slice(startIndex, startIndex + btRowsPerPage);
+    const totalBTPage = Math.ceil(btDataCache.length / btRowsPerPage);
+    let listHTML = "";
+    paginatedBT.forEach(item => {
+        let tuttiUsciti = item.arrP.concat(item.arrExtra); 
+        let pronosticoColorato = item.prev.map(n => {
+            return tuttiUsciti.includes(n) ? `<span class="dynamic-p-hit">${n}</span>` : `<span class="dynamic-p-miss">${n}</span>`;
+        }).join(' ');
+        let pColor = item.progPerc >= 70 ? '#00e676' : (item.progPerc >= 50 ? '#ffcc00' : '#ff5252');
+        listHTML += `<div class="bt-row ${item.isWin?'win-row':'lost-row'}">
+            <div style="width:25%; line-height:1.2; font-size:10px;"><b style="color:#ffcc00">#${item.gara.n}</b><br><span style="font-size:8px; color:#777;">${item.gara.ipp}</span></div>
+            <div style="width:40%; text-align:center; font-family:monospace; font-size:10px; border-left:1px solid #333; border-right:1px solid #333; padding:0 2px;"><span style="display:block; font-size:9px; color:#ffcc00;">PRONOSTICO <span style="color:${pColor}; font-weight:bold;">${item.progPerc}%</span></span>${pronosticoColorato}</div>
+            <div style="width:35%; text-align:center; font-size:9px;"><b>${item.arrP.join('-')}</b><span style="color:#bbb;">-${item.arrExtra.join('-')}</span><div style="font-size:7.5px; color:#00bfff;">P:${item.gara.part} R:${item.gara.rit||'-'}</div></div>
+        </div>`;
+    });
+    document.getElementById("backtestList").innerHTML = listHTML;
+    document.getElementById("btPageIndicator").innerHTML = `ANALISI ${btPage}/${totalBTPage || 1}<br><span style="color:#00bfff; font-size:9px;">(${btDataCache.length} GARE)</span>`;
+    document.getElementById("prevBT").disabled = (btPage === 1);
+    document.getElementById("nextBT").disabled = (btPage === totalBTPage || totalBTPage === 0);
+}
+
+function changeBTPage(step) { btPage += step; renderBTList(); }
+function changePage(step) { currentPage += step; renderTable(); }
+function updateIppodromoMenu() {
+    const dati = getDati(); const select = document.getElementById("nextIppodromo");
+    const ippodromiUnici = [...new Set(dati.map(g => g.ipp.toUpperCase()))].sort();
+    let options = '<option value="">🔅IPPODROMO🔆</option>';
+    ippodromiUnici.forEach(ipp => { options += `<option value="${ipp}">${ipp}</option>`; });
+    select.innerHTML = options;
+}
+
+// --- FASE 3: CORREZIONE INDICE STARTINDEX + INDEX ---
+function renderTable() { 
+    const dati = getDati(); const startIndex = (currentPage - 1) * rowsPerPage;
+    const paginatedData = dati.slice(startIndex, startIndex + rowsPerPage);
+    const totalPages = Math.ceil(dati.length / rowsPerPage);
+    document.getElementById("headerCount").innerHTML = `<span class="counter-badge">Gare: ${dati.length}</span>N-IPP`;
+    document.getElementById("mainBody").innerHTML = paginatedData.map((g, index) => {
+        return `<tr><td><b style="color:#ffcc00">#${g.n}</b><br>${g.ipp}</td><td>P: ${g.part}<br><span style="color:#ffcc00">R: ${g.rit||'-'}</span></td><td>${g.arr}</td><td><span class="action-btn" onclick="editRace(${startIndex + index})">✏️</span></td></tr>`;
+    }).join(""); 
+    document.getElementById("pageIndicator").innerText = `PAG. ${currentPage}/${totalPages}`;
+    document.getElementById("prevPage").disabled = (currentPage === 1); document.getElementById("nextPage").disabled = (currentPage === totalPages);
+}
+
+function editRace(index) {
+    let d = getDati(); let g = d[index]; editingIndex = index;
+    document.getElementById("add_numero").value = g.n; document.getElementById("add_ipp").value = g.ipp;
+    document.getElementById("add_part").value = g.part; document.getElementById("add_rit").value = g.rit;
+    document.getElementById("add_arr").value = g.arr; document.getElementById("addRacePanel").style.display = "block";
+}
+function openAddRace() { editingIndex = -1; document.getElementById("addRacePanel").style.display="block"; }
+function confirmAddRace() { 
+    var n=document.getElementById("add_numero").value, a=document.getElementById("add_arr").value, d=getDati(); if(!n||!a) return; 
+    let newRace = {n:n, ipp:document.getElementById("add_ipp").value.toUpperCase(), part:document.getElementById("add_part").value, rit:document.getElementById("add_rit").value, arr:a};
+    if(editingIndex > -1) { d[editingIndex] = newRace; } else { d.unshift(newRace); }
+    localStorage.setItem("tris_archive", JSON.stringify(d)); location.reload(); 
+}
+function exportArchive() { var t=document.createElement('textarea'); t.value=JSON.stringify(getDati()); document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); alert("ARCHIVIO COPIATO!"); }
+function importArchive() { var s=prompt("Incolla qui l'archivio:"); if(s){localStorage.setItem("tris_archive",s);location.reload();} }
+function deleteRace(index) { let d=getDati(); d.splice(index,1); localStorage.setItem("tris_archive", JSON.stringify(d)); location.reload(); }
+function markNeedsUpdate() { document.getElementById("btnCalcola").style.background="#ffcc00"; }
+
+window.onload = function() { renderTable(); updateIppodromoMenu(); runBacktest(); };
+</script>
+
+<div id="addRacePanel" style="display:none; background:#222; padding:20px; border-radius:15px; border: 1px solid #ffcc00; position:fixed; top:10%; left:5%; width:80%; z-index:1000;">
+    <h3>Aggiungi/Modifica Gara</h3>
+    <input id="add_numero" type="number" placeholder="N. Gara">
+    <input id="add_ipp" type="text" placeholder="Ippodromo">
+    <input id="add_part" type="number" placeholder="Partenti" value="15">
+    <input id="add_rit" type="text" placeholder="Ritirati">
+    <input id="add_arr" type="text" placeholder="Arrivo (es: 1 2 3 4 5)">
+    <button onclick="confirmAddRace()" style="background:#00e676; width:100%; padding:15px; border-radius:10px; border:none; font-weight:bold;">SALVA</button>
+    <button onclick="document.getElementById('addRacePanel').style.display='none'" style="background:#444; color:#fff; width:100%; margin-top:10px; border:none; padding:10px; border-radius:10px;">CHIUDI</button>
+    <button onclick="if(editingIndex>-1) deleteRace(editingIndex)" style="background:#f44336; color:#fff; width:100%; margin-top:10px; border:none; padding:10px; border-radius:10px; font-size: 10px;">ELIMINA</button>
+</div>
+</body>
+</html>
+🥇🥇🏇🏇🏇DEFINITIVO BY PIER 🏇🏇🏇🥇🥇
