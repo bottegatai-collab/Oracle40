@@ -1,454 +1,938 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tris Predictor Pier Quantum 8.5 - CROSS-OVER EDITION</title>
-    <style>
-        body { background: #0d0d0d; color: #f2f2f2; font-family: -apple-system, sans-serif; padding: 15px; border: 5px solid #ffcc00; margin: 0; }
-        h1 { text-align: center; font-size: 20px; color: #ffcc00; text-transform: uppercase; margin: 10px 0 15px 0; letter-spacing: 2px; }
-        
-        .table-wrapper { min-height: 180px; border: 1px solid #333; margin-bottom: 10px; border-radius: 12px; background: #111; overflow: hidden; }
-        table { width: 100%; border-collapse: collapse; font-size: 10px; }
-        th { background: #222; padding: 10px 5px; color: #ffcc00; border-bottom: 2px solid #ffcc00; }
-        td { padding: 8px 4px; border-bottom: 1px solid #222; text-align: center; }
-        
-        .counter-badge { font-size: 13px; color: #00bfff; display: block; margin-bottom: 5px; font-weight: bold; }
-
-        .pagination-ctrl { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 15px; background: #181818; padding: 8px; border-radius: 10px; border: 1px solid #333; }
-        .btn-nav { background: #ffcc00; color: #000; border: none; padding: 5px 12px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 11px; }
-        .btn-nav:disabled { background: #444; color: #888; cursor: not-allowed; }
-        .page-indicator { font-size: 10px; font-weight: bold; color: #ffcc00; text-transform: uppercase; text-align: center; }
-
-        .btn-group { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 20px; }
-        .btn-sys { flex: 1; min-width: 80px; padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 11px; color: #000; }
-        .box-premium { background: #181818; padding: 15px; border-radius: 15px; border: 1px solid #333; margin-top: 15px; }
-        h3 { color: #ffcc00; margin-top: 0; font-size: 14px; text-transform: uppercase; }
-        
-        #backtestContainer { margin-top: 15px; background: #000; border-radius: 15px; border: 1px solid #222; overflow: hidden; }
-        .sticky-forecast { background: #1a1a1a; padding: 12px; border-bottom: 2px solid #ffcc00; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        
-        .cross-over-box { border-left: 4px solid #00e676; background: rgba(0, 230, 118, 0.08); padding: 10px; border-radius: 8px; margin-bottom: 12px; }
-        .next-row { border-left: 4px solid #ffcc00; padding: 8px; border-radius: 8px; background: rgba(255,204,0,0.05); margin-bottom: 8px; }
-        
-        .bt-row { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid #444; font-size: 11px; background: #111; }
-        .win-row { background: rgba(0, 230, 118, 0.05); border-left-color: #00e676; }
-        .lost-row { background: rgba(255, 82, 82, 0.02); border-left-color: #ff5252; color: #888; }
-        
-        .dynamic-p-hit { color: #ffcc00; font-weight: bold; font-size: 10px; }
-        .dynamic-p-miss { color: #ffffff; opacity: 0.70; font-size: 10px; }
-
-        input, select { background: #000; color: #fff; border: 1px solid #444; padding: 12px; border-radius: 8px; font-size: 16px; width: 100%; box-sizing: border-box; margin-bottom: 10px; }
-        .btn-calcola { background: #00e676; color: #000; width: 100%; padding: 18px; border-radius: 12px; font-size: 18px; font-weight: bold; border: none; cursor: pointer; margin: 10px 0; }
-        .stat-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-        .stat-box { background: #222; padding: 8px 4px; border-radius: 8px; text-align: center; border: 1px solid #333; }
-        .gold-advice { margin-top: 10px; padding: 10px; background: rgba(255,204,0,0.1); border: 1px dashed #ffcc00; border-radius: 10px; font-size: 12px; }
-        
-        .btn-reg-rit { background: #ffcc00; color: #000; border: none; border-radius: 8px; padding: 0 15px; font-size: 20px; cursor: pointer; height: 46px; display: flex; align-items: center; justify-content: center; }
-        .bussola-text { font-size: 11px; color: #00bfff; font-weight: bold; margin-left: 15px; vertical-align: middle; }
-        .action-btn { cursor: pointer; padding: 4px; font-size: 14px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Damos - Storia 2004-2007</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #0d1b2a;
+      color: #e0e1dd;
+      line-height: 1.6;
+    }
+    
+    header {
+      background: linear-gradient(135deg, #1b263b, #415a77);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 4px solid #fcbf49;
+    }
+    
+    header h1 { color: #fcbf49; font-size: 2em; }
+    header p { color: #e0e1dd; font-style: italic; }
+    
+    nav {
+      background: #1b263b;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    nav button {
+      background: none;
+      border: none;
+      color: #e0e1dd;
+      padding: 12px 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.9em;
+    }
+    
+    nav button:hover, nav button.active {
+      background: #fcbf49;
+      color: #0d1b2a;
+    }
+    
+    main {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #1b263b;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    
+    .section { display: none; }
+    .section.active { display: block; }
+    
+    h2 {
+      color: #fcbf49;
+      border-bottom: 2px solid #fcbf49;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+    
+    h3 {
+      color: #fcbf49;
+      margin: 20px 0 10px;
+    }
+    
+    .season-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #415a77;
+    }
+    
+    .season-tabs button {
+      background: #0d1b2a;
+      color: #e0e1dd;
+      border: none;
+      padding: 10px 18px;
+      cursor: pointer;
+      border-radius: 6px 6px 0 0;
+      font-weight: bold;
+      font-size: 0.9em;
+      transition: 0.3s;
+    }
+    
+    .season-tabs button:hover { background: #415a77; }
+    
+    .season-tabs button.active {
+      background: #fcbf49;
+      color: #0d1b2a;
+    }
+    
+    .season-content { display: none; }
+    .season-content.active { display: block; }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    
+    th, td {
+      padding: 8px;
+      text-align: center;
+      border-bottom: 1px solid #415a77;
+      font-size: 0.9em;
+      vertical-align: middle;
+    }
+    
+    th {
+      background: #415a77;
+      color: #fcbf49;
+    }
+    
+    tr:nth-child(even) { background: #1b263b; }
+    tr:nth-child(odd) { background: #0d1b2a; }
+    
+    .highlight {
+      background: #415a77 !important;
+      color: #fcbf49;
+      font-weight: bold;
+    }
+    
+    .col-giallo { color: #fcbf49; font-weight: bold; }
+    .col-rosso { color: #e63946; font-weight: bold; }
+    
+    .summary-card {
+      background: #0d1b2a;
+      border: 1px solid #415a77;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px 0;
+    }
+    
+    .result-win { color: #2a9d8f; font-weight: bold; }
+    .result-draw { color: #fcbf49; font-weight: bold; }
+    .result-loss { color: #e63946; font-weight: bold; }
+    
+    .marcatori {
+      display: block;
+      font-size: 0.8em;
+      color: #778da9;
+      font-style: italic;
+      margin-top: 3px;
+      font-weight: normal;
+    }
+    
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 15px;
+      align-items: center;
+    }
+    
+    .sort-btn {
+      background: #415a77;
+      color: #e0e1dd;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85em;
+    }
+    
+    .sort-btn:hover, .sort-btn.active {
+      background: #fcbf49;
+      color: #0d1b2a;
+    }
+    
+    .nome-squadra-badge {
+      display: inline-block;
+      background: #fcbf49;
+      color: #0d1b2a;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+    
+    .note-box {
+      background: linear-gradient(135deg, #1b263b, #0d1b2a);
+      border: 2px solid #fcbf49;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 25px;
+      position: relative;
+    }
+    
+    .note-box::before {
+      content: '📝';
+      position: absolute;
+      top: -12px;
+      left: 15px;
+      background: #1b263b;
+      padding: 0 8px;
+      font-size: 1.2em;
+    }
+    
+    .note-box h4 {
+      color: #fcbf49;
+      margin-bottom: 10px;
+      font-size: 1em;
+    }
+    
+    .note-display {
+      background: #0d1b2a;
+      border-left: 3px solid #fcbf49;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      font-style: italic;
+      color: #e0e1dd;
+      line-height: 1.7;
+    }
+    
+    .note-empty {
+      color: #778da9;
+      font-style: italic;
+      font-size: 0.9em;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #0d1b2a;
+      color: #778da9;
+      margin-top: 30px;
+    }
+    
+    @media (max-width: 600px) {
+      nav button { padding: 10px 10px; font-size: 0.8em; }
+      table { font-size: 0.75em; }
+      header h1 { font-size: 1.5em; }
+      th, td { padding: 5px 3px; }
+      .season-tabs button { padding: 8px 12px; font-size: 0.8em; }
+      .marcatori { font-size: 0.7em; }
+      .note-box { padding: 12px; }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>⚽ REAL DAMOS c5 ⚽️</h1>
+    <p>Stagioni 2004-05 / 2005-06 / 2006-07 </p>
+  </header>
 
-<h1>Predictor Quantum 8.5 Cross</h1>
+  <nav>
+    <button onclick="showSection('home', this)" class="active">Home</button>
+    <button onclick="showSection('classifica', this)">Classifica</button>
+    <button onclick="showSection('rosa', this)">Rosa</button>
+    <button onclick="showSection('calendario', this)">Partite</button>
+    <button onclick="showSection('giocatori', this)">Statistiche</button>
+  </nav>
 
-<div class="btn-group">
-    <button class="btn-sys" onclick="openAddRace()" style="background:#00bfff;">➕ GARA</button>
-    <button class="btn-sys" onclick="exportArchive()" style="background:#ff9800;">💾 COPIA</button>
-    <button class="btn-sys" onclick="importArchive()" style="background:#f44336; color:#fff;">📂 CARICA</button>
-</div>
+  <main>
+    <!-- HOME -->
+    <div id="home" class="section active">
+      <h2>Storia </h2>
 
-<div class="table-wrapper">
-    <table id="mainTable">
-        <thead>
+      <p>
+        Nella stagione <strong>2004-05</strong> 
+        la squadra si chiamava <strong>Domegge </strong>in Serie D, mentre dal <strong>2005-06</strong> 
+        grazie ad un idea del Presidente Carli è diventata <strong>Real Damos</strong> partendo dalla Serie D per poi salire in serie C2 dopo la storica promozione conquistata nello spareggio a Limana contro l'Atletico Belluno .
+      </p>
+    </div>
+
+    <!-- CLASSIFICA -->
+    <div id="classifica" class="section">
+      <h2>Classifica</h2>
+      
+      <div class="season-tabs">
+        <button onclick="showSeason('classifica', '2004-05', this)" class="active">2004-05</button>
+        <button onclick="showSeason('classifica', '2005-06', this)">2005-06</button>
+        <button onclick="showSeason('classifica', '2006-07', this)">2006-07</button>
+      </div>
+      
+      <div id="classifica-2004-05" class="season-content active">
+        <table>
+          <thead>
             <tr>
-                <th id="headerCount">N-IPP</th>
-                <th>Par-Rit</th>
-                <th>ARRIVO</th>
-                <th>⚙️</th>
+              <th>Pos</th><th>Squadra</th><th>G</th><th>V</th><th>N</th>
+              <th>P</th><th>GF</th><th>GS</th><th>Pt</th>
             </tr>
+          </thead>
+          <tbody id="classificaBody-2004-05"></tbody>
+        </table>
+        
+        <div id="noteDisplay-2004-05"></div>
+      </div>
+      
+      <div id="classifica-2005-06" class="season-content">
+        <table>
+          <thead>
+            <tr>
+              <th>Pos</th><th>Squadra</th><th>G</th><th>V</th><th>N</th>
+              <th>P</th><th>GF</th><th>GS</th><th>Pt</th>
+            </tr>
+          </thead>
+          <tbody id="classificaBody-2005-06"></tbody>
+        </table>
+        
+        <div id="noteDisplay-2005-06"></div>
+      </div>
+      
+      <div id="classifica-2006-07" class="season-content">
+        <table>
+          <thead>
+            <tr>
+              <th>Pos</th><th>Squadra</th><th>G</th><th>V</th><th>N</th>
+              <th>P</th><th>GF</th><th>GS</th><th>Pt</th>
+            </tr>
+          </thead>
+          <tbody id="classificaBody-2006-07"></tbody>
+        </table>
+        
+        <div id="noteDisplay-2006-07"></div>
+      </div>
+    </div>
+
+    <!-- ROSA -->
+    <div id="rosa" class="section">
+      <h2>Rosa</h2>
+      
+      <div class="season-tabs">
+        <button onclick="showSeason('rosa', '2004-05', this)" class="active">2004-05</button>
+        <button onclick="showSeason('rosa', '2005-06', this)">2005-06</button>
+        <button onclick="showSeason('rosa', '2006-07', this)">2006-07</button>
+      </div>
+      
+      <div id="rosa-2004-05" class="season-content active">
+        <table>
+          <thead>
+            <tr>
+              <th>N°</th><th>Giocatore</th><th>Ruolo</th>
+              <th>Pres</th><th>Gol</th><th class="col-giallo">🟨</th><th class="col-rosso">🟥</th>
+            </tr>
+          </thead>
+          <tbody id="rosaBody-2004-05"></tbody>
+        </table>
+      </div>
+      
+      <div id="rosa-2005-06" class="season-content">
+        <table>
+          <thead>
+            <tr>
+              <th>N°</th><th>Giocatore</th><th>Ruolo</th>
+              <th>Pres</th><th>Gol</th><th class="col-giallo">🟨</th><th class="col-rosso">🟥</th>
+            </tr>
+          </thead>
+          <tbody id="rosaBody-2005-06"></tbody>
+        </table>
+      </div>
+      
+      <div id="rosa-2006-07" class="season-content">
+        <table>
+          <thead>
+            <tr>
+              <th>N°</th><th>Giocatore</th><th>Ruolo</th>
+              <th>Pres</th><th>Gol</th><th class="col-giallo">🟨</th><th class="col-rosso">🟥</th>
+            </tr>
+          </thead>
+          <tbody id="rosaBody-2006-07"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CALENDARIO -->
+    <div id="calendario" class="section">
+      <h2>📅 Calendario Partite</h2>
+      
+      <div class="season-tabs">
+        <button onclick="showSeason('calendario', '2004-05', this)" class="active">2004-05</button>
+        <button onclick="showSeason('calendario', '2005-06', this)">2005-06</button>
+        <button onclick="showSeason('calendario', '2006-07', this)">2006-07</button>
+      </div>
+      
+      <div id="calendario-2004-05" class="season-content active">
+        <table>
+          <thead>
+            <tr>
+              <th>Git</th><th>Avversario</th><th>Andata</th><th>Ritorno</th>
+              <th>Pt</th>
+            </tr>
+          </thead>
+          <tbody id="calendarioBody-2004-05"></tbody>
+        </table>
+        <div id="statsCalendario-2004-05" class="summary-card" style="margin-top: 20px;"></div>
+      </div>
+      
+      <div id="calendario-2005-06" class="season-content">
+        <table>
+          <thead>
+            <tr>
+              <th>Git</th><th>Avversario</th><th>Andata</th><th>Ritorno</th>
+              <th>Pt</th>
+            </tr>
+          </thead>
+          <tbody id="calendarioBody-2005-06"></tbody>
+        </table>
+        <div id="statsCalendario-2005-06" class="summary-card" style="margin-top: 20px;"></div>
+      </div>
+      
+      <div id="calendario-2006-07" class="season-content">
+        <table>
+          <thead>
+            <tr>
+              <th>Git</th><th>Avversario</th><th>Andata</th><th>Ritorno</th>
+              <th>Pt</th>
+            </tr>
+          </thead>
+          <tbody id="calendarioBody-2006-07"></tbody>
+        </table>
+        <div id="statsCalendario-2006-07" class="summary-card" style="margin-top: 20px;"></div>
+      </div>
+    </div>
+
+    <!-- GIOCATORI -->
+    <div id="giocatori" class="section">
+      <h2>📊 Riepilogo Giocatori</h2>
+      
+      <div class="season-tabs">
+        <button onclick="switchGiocatoriView('totale', this)" class="active">📈 Totale (2004-2007)</button>
+        <button onclick="switchGiocatoriView('2004-05', this)">2004-05 <span class="nome-squadra-badge">Domegge</span></button>
+        <button onclick="switchGiocatoriView('2005-06', this)">2005-06 <span class="nome-squadra-badge">Real Damos</span></button>
+        <button onclick="switchGiocatoriView('2006-07', this)">2006-07 <span class="nome-squadra-badge">Real Damos</span></button>
+      </div>
+      
+      <div class="toolbar">
+        <span style="padding: 6px; color: #fcbf49;">Ordina per:</span>
+        <button class="sort-btn active" onclick="sortGiocatori('gol', this)">⚽ Gol</button>
+        <button class="sort-btn" onclick="sortGiocatori('presenze', this)">👕 Presenze</button>
+        <button class="sort-btn" onclick="sortGiocatori('nome', this)">🔤 Nome</button>
+        <button class="sort-btn" onclick="sortGiocatori('ammonizioni', this)">🟨 Amm</button>
+        <button class="sort-btn" onclick="sortGiocatori('espulsioni', this)">🟥 Esp</button>
+      </div>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Pos</th><th>Giocatore</th><th>Ruolo</th>
+            <th id="thStagioni">Stagioni</th><th>Pres</th><th>Gol</th>
+            <th class="col-giallo">🟨</th><th class="col-rosso">🟥</th><th>Media</th>
+          </tr>
         </thead>
-        <tbody id="mainBody"></tbody>
-    </table>
-</div>
-<div class="pagination-ctrl">
-    <button class="btn-nav" id="prevPage" onclick="changePage(-1)">◀</button>
-    <div id="pageIndicator" class="page-indicator">Pagina 1</div>
-    <button class="btn-nav" id="nextPage" onclick="changePage(1)">▶</button>
-</div>
-
-<div class="box-premium">
-    <h3>🏇 PROSSIMA GARA 🏇</h3>
-    <select id="nextIppodromo" onchange="markNeedsUpdate()" style="width: 100%;">
-        <option value="">🔅IPPODROMO🔆</option>
-    </select>
-    
-    <div style="display:flex; gap:8px; align-items: flex-start;">
-        <div style="width: 25%;"><input type="number" id="nextPartenti" value="15" oninput="markNeedsUpdate()"></div>
-        <div style="flex: 1;"><input type="text" id="nextRitirati" placeholder="RITIRATI" oninput="markNeedsUpdate()"></div>
-        <button class="btn-reg-rit" onclick="runBacktest()">💾</button>
+        <tbody id="giocatoriBody"></tbody>
+      </table>
+      
+      <div id="riepilogo" class="summary-card" style="margin-top: 20px;">
+      </div>
     </div>
-</div>
+  </main>
 
-<div class="box-premium">
-    <h3>⚙️ ELABORAZIONE</h3>
-    <div class="stat-grid-3">
-        <div class="stat-box"><div id="precGen" style="color:#ffcc00; font-size:16px;">--%</div><div class="small-label">GENERALE</div></div>
-        <div class="stat-box"><div id="precIpp" style="color:#00bfff; font-size:16px;">--%</div><div class="small-label">IPPODROMO</div></div>
-        <div class="stat-box"><div id="precCiclo" style="color:#00e676; font-size:16px;">--%</div><div class="small-label">RENDITA +3</div></div>
-    </div>
-    <select id="methodSelect" onchange="markNeedsUpdate()">
-        <option value="uk_oracle">💎 UK-ORACLE 2.0 (Balanced)</option>
-        <option value="uk_overkill">🔥 UK-OVERKILL (88%)</option>
-        <option value="uk_domination">👑 UK-TOTAL DOMINATION (85%)</option>
-        <option value="uk_god">🔱 UK-GOD MODE (74%)</option>
-        <option value="pentagold" selected>✨ PENTA-GOLD 8.5 (Magnet)</option>
-        <option value="quantum">🌀 Quantum Predictor</option>
-        <option value="radar">📡 Radar Frequenza</option>
-        <option value="fuoco">🔥 Triple Match </option>
-        <option value="specchio">💎 Specchio-Dinamico</option>
-    </select>
-    <select id="testMode" onchange="markNeedsUpdate()">
-        <option value="5" selected>5 numeri</option>
-        <option value="3">3 numeri</option>
-        <option value="7">7 numeri</option>
-    </select>
-    <button id="btnCalcola" class="btn-calcola" onclick="runBacktest()">📊 ANALISI CROSS-OVER 📊</button>
-    
-    <div id="backtestContainer">
-        <div id="stickyForecastBox" class="sticky-forecast"></div>
-        <div id="backtestList" style="padding:10px;"></div>
-        <div class="pagination-ctrl" style="margin: 0 10px 10px 10px;">
-            <button class="btn-nav" id="prevBT" onclick="changeBTPage(-1)">◀</button>
-            <div id="btPageIndicator" class="page-indicator">Analisi 1</div>
-            <button class="btn-nav" id="nextBT" onclick="changeBTPage(1)">▶</button>
-        </div>
-    </div>
-</div>
+  <footer>
+    © 2004-2007 Real Damos — Sito commemorativo
+  </footer>
 
-<script>
-function playQuantumSound(type) {
-    try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        if (type === 'click') {
-            osc.type = 'sine'; osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.1);
-        } else if (type === 'gold') {
-            osc.type = 'triangle'; osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.2);
-            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.2);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.2);
-        }
-    } catch (e) {}
-}
-
-const DATABASE_ORIGINALE = [ { n:"6096", ipp:"NAPOLI", part:"15", rit:"6", arr:"3 11 2 13 5" }, { n:"6095", ipp:"CASTELLUCCIO S.", part:"15", rit:"10", arr:"3 1 13 11 15" }, { n:"6094", ipp:"MILANO", part:"12", rit:"", arr:"6 12 7 4 5" }, { n:"6093", ipp:"NAPOLI", part:"13", rit:"4", arr:"13 8 1 6 3" }, { n:"6092", ipp:"FRANCIA", part:"15", rit:"4", arr:"14 12 9 7 3" }, { n:"6091", ipp:"PISA", part:"11", rit:"", arr:"2 9 1 10 11" }, { n:"6090", ipp:"FRANCIA", part:"13", rit:"", arr:"11 6 9 3 13" }, { n:"6089", ipp:"MILANO", part:"14", rit:"6 14", arr:"13 12 11 7 10" }, { n:"6088", ipp:"PISA", part:"15", rit:"11", arr:"5 9 2 8 14" }, { n:"6087", ipp:"MILANO", part:"11", rit:"6", arr:"9 11 7 5 4" } ];
-
-let currentPage = 1;
-const rowsPerPage = 5;
-let btPage = 1;
-const btRowsPerPage = 5; 
-let btDataCache = [];
-let editingIndex = -1;
-
-function getDati() { var s=localStorage.getItem("tris_archive"); return (!s||s==="[]")?DATABASE_ORIGINALE:JSON.parse(s); }
-
-function getScore(num, dati, method) {
-    let gp = dati.filter(g => num <= parseInt(g.part));
-    if(gp.length === 0) return 0;
-    let s = 0;
-
-    if(method === "uk_oracle") {
-        let lastArr = gp[0].arr.split(/[\s,-]+/).map(Number);
-        let partenti = parseInt(gp[0].part);
-        let baseOracle = (partenti - lastArr[0] + 1);
-        let centro = Math.ceil(partenti / 2);
-        let oracleFinal = Math.round((baseOracle + centro) / 2); 
-        if(num === oracleFinal) s += 115;
-        if(Math.abs(num - oracleFinal) === 1) s += 60; 
-        let freqOracle = gp.slice(0, 10).filter(g => g.arr.split(/[\s,-]+/).map(Number).slice(0,3).includes(num)).length;
-        s += (freqOracle * 25);
-        if(gp.slice(0,2).some(g => g.arr.split(/[\s,-]+/).map(Number).includes(num))) s -= 85;
-    } else if(method === "uk_overkill") {
-        let lastArr = gp[0].arr.split(/[\s,-]+/).map(Number);
-        let partenti = parseInt(gp[0].part);
-        for(let i=0; i<lastArr.length-1; i++) {
-            for(let j=i+1; j<lastArr.length; j++) {
-                if(Math.abs(lastArr[i]-lastArr[j]) === 2) {
-                    let pivot = (lastArr[i] + lastArr[j]) / 2;
-                    if(num === pivot) s += 95;
-                }
+  <script>
+    // ===== DATI INCORPORATI =====
+    const DATI_INCORPORATI = {
+      "squadre": {
+        "2004-05": [
+          {"nome": "Domegge", "g": 22, "v": 0, "n": 0, "p": 0, "gf": 159, "gs": 101, "pt": 50},
+          {"nome": "Zater Piave", "g": 22, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 51},
+          {"nome": "Feltre", "g": 22, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 46},
+          {"nome": "Atletico BL", "g": 22, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 45},
+          {"nome": "Ardita Moriago", "g": 22, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 45},
+          {"nome": "Limana", "g": 22, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 38},
+          {"nome": "Pederobba", "g": 22, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 28},
+          {"nome": "Sinistra Piave", "g": 22, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 15},
+          {"nome": "Colori Cristina", "g": 22, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 8},
+          {"nome": "Montegrappa", "g": 22, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 25},
+          {"nome": "Segusino", "g": 22, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 10},
+          {"nome": "Lamon", "g": 22, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 26}
+        ],
+        "2005-06": [
+          {"nome": "Real Damos", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 141, "gs": 107, "pt": 56},
+          {"nome": "Atletico Belluno", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 56},
+          {"nome": "Limana", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 55},
+          {"nome": "Pederobba", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 55},
+          {"nome": "Feltre", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 52},
+          {"nome": "Cornuda", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 35},
+          {"nome": "Colori Cristina", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 13},
+          {"nome": "Ardita Moriago", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 20},
+          {"nome": "Lamon", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 23},
+          {"nome": "Sinistra Piave", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 26},
+          {"nome": "Segusino", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 28},
+          {"nome": "Domegg e", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 21},
+          {"nome": "Basalghelle", "g": 24, "v": 0, "n": 0, "p": 0, "gf": 0, "gs": 0, "pt": 16}
+        ],
+        "2006-07": []
+      },
+      "giocatori": {
+        "2004-05": [
+          {"num": 1, "nome": "Dalla Chiesa Mauro", "ruolo": "Portiere", "pres": 18, "gol": 6, "stagione": "2004-05", "ammonizioni": 0, "espulsioni": 0},
+          {"num": 12, "nome": "Del Favero Patrick", "ruolo": "Portiere", "pres": 20, "gol": 1, "ammonizioni": 1, "espulsioni": 0, "stagione": "2004-05"},
+          {"num": 2, "nome": "Castoldi Bruno", "ruolo": "Libero", "pres": 16, "gol": 1, "ammonizioni": 3, "espulsioni": 1, "stagione": "2004-05"},
+          {"num": 3, "nome": "De Carlo Ettore", "ruolo": "Laterale", "pres": 21, "gol": 15, "ammonizioni": 3, "espulsioni": 0, "stagione": "2004-05"},
+          {"num": 4, "nome": "Frescura Valentino", "ruolo": "Libero", "pres": 18, "gol": 4, "ammonizioni": 2, "espulsioni": 0, "stagione": "2004-05"},
+          {"num": 5, "nome": "Peruz Giuseppe", "ruolo": "Laterale", "pres": 17, "gol": 0, "stagione": "2004-05", "ammonizioni": 0, "espulsioni": 0},
+          {"num": 6, "nome": "Boscaro Fabio", "ruolo": "Universale", "pres": 18, "gol": 11, "ammonizioni": 1, "espulsioni": 0, "stagione": "2004-05"},
+          {"num": 7, "nome": "Sanna Gianni", "ruolo": "Laterale", "pres": 15, "gol": 3, "ammonizioni": 0, "espulsioni": 0, "stagione": "2004-05"},
+          {"num": 10, "nome": "Mascolo PierMario", "ruolo": "Laterale", "pres": 19, "gol": 21, "ammonizioni": 3, "espulsioni": 1, "stagione": "2004-05"},
+          {"num": 11, "nome": "Mazzoleni Alessandro", "ruolo": "Pivot", "pres": 21, "gol": 64, "ammonizioni": 3, "espulsioni": 0, "stagione": "2004-05"},
+          {"num": 16, "nome": "Baldovin Luca", "ruolo": "Universale", "pres": 18, "gol": 4, "stagione": "2004-05", "ammonizioni": 0, "espulsioni": 0},
+          {"num": 8, "nome": "Del Favero Rino", "ruolo": "Pivot", "pres": 20, "gol": 20, "ammonizioni": 3, "espulsioni": 0, "stagione": "2004-05"},
+          {"num": 15, "nome": "Marco ???", "ruolo": "Laterale", "pres": 15, "gol": 9, "ammonizioni": 3, "espulsioni": 0, "stagione": "2004-05"},
+          {"num": 17, "nome": "Paolo ???", "ruolo": "Laterale", "pres": 7, "gol": 0, "ammonizioni": 0, "espulsioni": 0, "stagione": "2004-05"},
+          {"num": 18, "nome": "Castellani Marco", "ruolo": "Laterale", "pres": 1, "gol": 0, "ammonizioni": 0, "espulsioni": 0, "stagione": "2004-05"},
+          {"num": 19, "nome": "Vielmo Daniel", "ruolo": "Laterale", "pres": 1, "gol": 0, "ammonizioni": 0, "espulsioni": 0, "stagione": "2004-05"},
+          {"num": 20, "nome": "Ferruccio ??", "ruolo": "Laterale", "pres": 1, "gol": 0, "ammonizioni": 0, "espulsioni": 0, "stagione": "2004-05"}
+        ],
+        "2005-06": [
+          {"num": 1, "nome": "Dalla Chiesa Mauro", "ruolo": "Portiere", "pres": 24, "gol": 2, "ammonizioni": 0, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 12, "nome": "Del Favero Patrick", "ruolo": "Portiere", "pres": 13, "gol": 0, "ammonizioni": 0, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 2, "nome": "Castoldi Bruno", "ruolo": "Libero", "pres": 12, "gol": 1, "ammonizioni": 0, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 7, "nome": "Fedon Moreno", "ruolo": "Laterale", "pres": 21, "gol": 18, "ammonizioni": 2, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 3, "nome": "Frescura Valentino", "ruolo": "Libero", "pres": 24, "gol": 4, "ammonizioni": 4, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 14, "nome": "Peruz Giuseppe", "ruolo": "Laterale", "pres": 13, "gol": 2, "ammonizioni": 0, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 6, "nome": "Boscaro Fabio", "ruolo": "Universale", "pres": 17, "gol": 6, "ammonizioni": 4, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 15, "nome": "Sanna Gianni", "ruolo": "Laterale", "pres": 10, "gol": 2, "ammonizioni": 0, "espulsioni": 1, "stagione": "2005-06"},
+          {"num": 10, "nome": "Mascolo PierMario", "ruolo": "Laterale", "pres": 12, "gol": 6, "ammonizioni": 3, "espulsioni": 1, "stagione": "2005-06"},
+          {"num": 11, "nome": "Mazzoleni Alessandro", "ruolo": "Pivot", "pres": 17, "gol": 54, "ammonizioni": 3, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 13, "nome": "Baldovin Luca", "ruolo": "Universale", "pres": 20, "gol": 9, "ammonizioni": 1, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 8, "nome": "Del Favero Rino", "ruolo": "Pivot", "pres": 14, "gol": 14, "ammonizioni": 1, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 18, "nome": "Paolo ?", "ruolo": "Pivot", "pres": 1, "gol": 0, "ammonizioni": 0, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 19, "nome": "Cornaviera Lino", "ruolo": "Laterale", "pres": 17, "gol": 4, "ammonizioni": 2, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 4, "nome": "Del Longo Gabriele", "ruolo": "Laterale", "pres": 21, "gol": 8, "ammonizioni": 5, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 21, "nome": "Gei Giovanni", "ruolo": "Laterale", "pres": 22, "gol": 16, "ammonizioni": 0, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 23, "nome": "De Marchi", "ruolo": "Laterale", "pres": 1, "gol": 1, "ammonizioni": 0, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 25, "nome": "Franco", "ruolo": "Pivot", "pres": 1, "gol": 0, "ammonizioni": 1, "espulsioni": 0, "stagione": "2005-06"},
+          {"num": 26, "nome": "Panciera", "ruolo": "Laterale", "pres": 1, "gol": 0, "ammonizioni": 0, "espulsioni": 0, "stagione": "2005-06"}
+        ],
+        "2006-07": [
+          {"num": 1, "nome": "Dalla Chiesa Mauro", "ruolo": "Portiere", "pres": 26, "gol": 2, "ammonizioni": 1, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 12, "nome": "Del Favero Patrick", "ruolo": "Portiere", "pres": 4, "gol": 0, "ammonizioni": 0, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 24, "nome": "Bergagnin Luca", "ruolo": "Portiere", "pres": 24, "gol": 0, "ammonizioni": 0, "espulsioni": 1, "stagione": "2006-07"},
+          {"num": 5, "nome": "Peruz Giuseppe", "ruolo": "Libero", "pres": 6, "gol": 0, "ammonizioni": 0, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 3, "nome": "Frescura Valentino", "ruolo": "Libero", "pres": 25, "gol": 3, "ammonizioni": 7, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 2, "nome": "Boscaro Fabio", "ruolo": "Universale", "pres": 27, "gol": 10, "ammonizioni": 8, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 17, "nome": "Delrio Thomas", "ruolo": "Laterale", "pres": 10, "gol": 0, "ammonizioni": 0, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 18, "nome": "Secco Emanuele", "ruolo": "Libero", "pres": 14, "gol": 0, "ammonizioni": 1, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 10, "nome": "Mascolo PierMario", "ruolo": "Laterale", "pres": 17, "gol": 14, "ammonizioni": 4, "espulsioni": 1, "stagione": "2006-07"},
+          {"num": 7, "nome": "Fedon Moreno", "ruolo": "Laterale", "pres": 18, "gol": 2, "ammonizioni": 3, "espulsioni": 1, "stagione": "2006-07"},
+          {"num": 18, "nome": "Baldovin Luca", "ruolo": "Universale", "pres": 12, "gol": 1, "ammonizioni": 1, "espulsioni": 1, "stagione": "2006-07"},
+          {"num": 19, "nome": "Cornaviera Lino", "ruolo": "Laterale", "pres": 13, "gol": 0, "ammonizioni": 0, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 16, "nome": "Del Longo Gabriele", "ruolo": "Laterale", "pres": 27, "gol": 20, "ammonizioni": 3, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 23, "nome": "Gei Giovanni", "ruolo": "Laterale", "pres": 27, "gol": 19, "ammonizioni": 2, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 26, "nome": "Ahamoa", "ruolo": "Laterale", "pres": 1, "gol": 1, "ammonizioni": 0, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 17, "nome": "Alvera' Manuel", "ruolo": "Laterale", "pres": 18, "gol": 5, "ammonizioni": 4, "espulsioni": 1, "stagione": "2006-07"},
+          {"num": 8, "nome": "Del Favero Rino", "ruolo": "Pivot", "pres": 20, "gol": 2, "ammonizioni": 3, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 10, "nome": "Piazza Riccardo", "ruolo": "Universale", "pres": 23, "gol": 11, "ammonizioni": 4, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 11, "nome": "Marzio", "ruolo": "Laterale", "pres": 9, "gol": 0, "ammonizioni": 0, "espulsioni": 0, "stagione": "2006-07"},
+          {"num": 11, "nome": "Mazzoleni Alessandro", "ruolo": "Pivot", "pres": 26, "gol": 90, "ammonizioni": 9, "espulsioni": 1, "stagione": "2006-07"}
+        ]
+      },
+      "partite": {
+        "2004-05": [
+          {
+            "giornata": 1,
+            "avversario": "Zater",
+            "andata": {
+              "gf": 3,
+              "gs": 2,
+              "marcatori": "Mascolo 2,baldo 1"
+            },
+            "ritorno": {
+              "gf": 0,
+              "gs": 3,
+              "marcatori": ""
             }
-        }
-        let mirror = (partenti - lastArr[0] + 1);
-        if(num === mirror) s += 40;
-        if(gp.slice(0,2).some(g => g.arr.split(/[\s,-]+/).map(Number).includes(num))) s -= 70;
-    } else if(method === "uk_domination") {
-        let lastArr = gp[0].arr.split(/[\s,-]+/).map(Number);
-        let partenti = parseInt(gp[0].part);
-        let decinaLast = Math.floor(lastArr[0] / 10);
-        if(Math.floor(num / 10) === decinaLast) s += 55;
-        let mirror = parseInt(lastArr[0].toString().split('').reverse().join(''));
-        if(num === mirror || num === (mirror % partenti)) s += 45;
-        if(gp.length > 2) {
-            let dueGareFa = gp[1].arr.split(/[\s,-]+/).map(Number);
-            if(dueGareFa.includes(num) && !lastArr.includes(num)) s += 50;
-        }
-        let shadow = (partenti - lastArr[0] + 1);
-        if(Math.abs(num - shadow) <= 1) s += 35;
-        let countRecent = gp.slice(0,3).filter(g => g.arr.split(/[\s,-]+/).map(Number).includes(num)).length;
-        if(countRecent >= 2) s -= 90;
-    } else if(method === "pentagold") {
-        let freq = gp.slice(0, 15).filter(g => g.arr.split(/[\s,-]+/).map(Number).includes(num)).length;
-        let lastArr = gp[0].arr.split(/[\s,-]+/).map(Number);
-        let magnet = lastArr.some(n => Math.abs(n - num) <= 2) ? 40 : 0;
-        let rit = 0; for(let i=0; i<gp.length; i++) { if(gp[i].arr.split(/[\s,-]+/).map(Number).includes(num)) { rit = i; break; } }
-        s = (freq * 15) + magnet + (rit > 8 ? 20 : 0);
-    } else if(method === "uk_god") {
-        let lastArr = gp[0].arr.split(/[\s,-]+/).map(Number);
-        let partenti = parseInt(gp[0].part);
-        let shadow = (partenti - lastArr[0] + 1);
-        if(num === shadow) s += 60;
-        if(lastArr.slice(0,3).some(n => Math.abs(n - num) === 1)) s += 45;
-        if(partenti > 15 && (num > partenti * 0.7)) s += 25;
-        let countRecent = gp.slice(0,2).filter(g => g.arr.split(/[\s,-]+/).map(Number).slice(0,3).includes(num)).length;
-        if(countRecent >= 2) s -= 80;
-        let freq = gp.slice(0, 10).filter(g => g.arr.split(/[\s,-]+/).map(Number).includes(num)).length;
-        s += (freq * 8);
-    } else if(method === "quantum") {
-        let pen = gp[0].arr.split(/[\s,-]+/).map(Number);
-        if(pen.includes(num)) s -= 35;
-        gp.slice(0, 5).forEach(g => { if(g.arr.split(/[\s,-]+/).map(Number).includes(num)) s += 12; });
-        gp.slice(5, 10).forEach(g => { if(g.arr.split(/[\s,-]+/).map(Number).includes(num)) s += 5; });
-    } else if(method === "radar") {
-        let counts = 0, totalPos = 0;
-        gp.slice(0, 15).forEach(g => {
-            let arr = g.arr.split(/[\s,-]+/).map(Number);
-            let pos = arr.indexOf(num) + 1;
-            if(pos > 0 && pos <= 5) { totalPos += pos; counts++; } else { totalPos += 15; }
-        });
-        s = 150 - (totalPos / 15 * 8) + (counts * 5);
-    } else if(method === "fuoco") {
-        gp.slice(0, 25).forEach(g => { if(g.arr.split(/[\s,-]+/).map(Number).includes(num)) s += 4; });
-    } else if(method === "specchio") {
-        let pen = gp[0].arr.split(/[\s,-]+/).map(Number);
-        if(pen.includes(num)) s += 20;
-        gp.slice(0, 10).forEach(g => { if(g.arr.split(/[\s,-]+/).map(Number).includes(num)) s += 7; });
+          }
+        ],
+        "2005-06": [],
+        "2006-07": []
+      },
+      "nomeSquadra": {
+        "2004-05": "Domegge",
+        "2005-06": "Real Damos",
+        "2006-07": "Real Damos"
+      },
+      "note": {
+        "2004-05": "Play off promozione\n\nVerona-Domegge ?\nDomegge - Vicenza ?\n",
+        "2005-06": "Spareggio Promozione \n\nReal Damos-Atletico BL 6-3",
+        "2006-07": ""
+      }
+    };
+
+    // Usa i dati incorporati
+    let data = DATI_INCORPORATI;
+
+    const STAGIONI = ['2004-05', '2005-06', '2006-07'];
+    let currentSort = 'gol';
+    let giocatoriViewMode = 'totale';
+
+    function getNomeSquadra(stagione) {
+      return data.nomeSquadra?.[stagione] || 'Real Damos';
     }
-    return s;
-}
-
-function getQuantumScores(partenti, ritiratiList, dati, metodo) {
-    let rawScores = [];
-    let massToRedistribute = 0;
-    const ippName = document.getElementById("nextIppodromo").value.toUpperCase();
     
-    const isBologna = ippName.includes("BOLOGNA");
-    const isPisaFrancia = ippName.includes("PISA") || ippName.includes("FRANCIA") || ippName.includes("FR");
-    const ritiratoPrimaFila = ritiratiList.some(r => r >= 1 && r <= 7);
+    function isNostraSquadra(nomeSquadra, stagione) {
+      const nomeNostro = getNomeSquadra(stagione).toLowerCase();
+      const nome = nomeSquadra.toLowerCase();
+      return nome === nomeNostro || 
+             nome.includes('damos') || 
+             nome.includes('domegge');
+    }
 
-    for(let i=1; i<=partenti; i++) {
-        let score = getScore(i, dati, metodo);
-        if (isBologna && ritiratoPrimaFila && (i === 8 || i === 14)) { score *= 1.85; }
-        if (isPisaFrancia && i === 7) { score *= 1.55; }
+    function showSection(id, btn) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+      renderAll();
+    }
 
-        if(ritiratiList.includes(i)) {
-            massToRedistribute += score;
-            rawScores.push({ num: i, score: -999, isRit: true });
+    function showSeason(section, stagione, btn) {
+      btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll(`#${section} .season-content`).forEach(c => c.classList.remove('active'));
+      document.getElementById(`${section}-${stagione}`).classList.add('active');
+    }
+
+    // ===== RENDERING =====
+    function renderClassifica(stagione) {
+      const body = document.getElementById(`classificaBody-${stagione}`);
+      const sorted = [...data.squadre[stagione]].sort((a, b) => b.pt - a.pt || (b.gf - b.gs) - (a.gf - a.gs));
+      
+      body.innerHTML = sorted.map((s, i) => {
+        const isNostra = isNostraSquadra(s.nome, stagione);
+        return `
+          <tr class="${isNostra ? 'highlight' : ''}">
+            <td>${i + 1}</td>
+            <td>${isNostra ? s.nome + ' ⭐' : s.nome}</td>
+            <td>${s.g}</td><td>${s.v}</td><td>${s.n}</td><td>${s.p}</td>
+            <td>${s.gf}</td><td>${s.gs}</td><td><strong>${s.pt}</strong></td>
+          </tr>
+        `;
+      }).join('');
+      
+      renderNote(stagione);
+    }
+
+    function renderRosa(stagione) {
+      const body = document.getElementById(`rosaBody-${stagione}`);
+      body.innerHTML = data.giocatori[stagione].map(g => `
+        <tr>
+          <td>${g.num}</td>
+          <td>${g.nome}</td>
+          <td>${g.ruolo}</td>
+          <td>${g.pres}</td>
+          <td>${g.gol}</td>
+          <td class="col-giallo">${g.ammonizioni || 0}</td>
+          <td class="col-rosso">${g.espulsioni || 0}</td>
+        </tr>
+      `).join('');
+    }
+
+    function calcolaPunti(andata, ritorno) {
+      let punti = 0;
+      if (andata.gf > andata.gs) punti += 3;
+      else if (andata.gf === andata.gs) punti += 1;
+      if (ritorno.gf > ritorno.gs) punti += 3;
+      else if (ritorno.gf === ritorno.gs) punti += 1;
+      return punti;
+    }
+
+    function getResultClass(gf, gs) {
+      if (gf > gs) return 'result-win';
+      if (gf === gs) return 'result-draw';
+      return 'result-loss';
+    }
+
+    function renderCalendario(stagione) {
+      const body = document.getElementById(`calendarioBody-${stagione}`);
+      const sorted = [...data.partite[stagione]].sort((a, b) => a.giornata - b.giornata);
+      const nomeNostro = getNomeSquadra(stagione);
+      
+      body.innerHTML = sorted.map(p => {
+        const punti = calcolaPunti(p.andata, p.ritorno);
+        const andataClass = getResultClass(p.andata.gf, p.andata.gs);
+        const ritornoClass = getResultClass(p.ritorno.gf, p.ritorno.gs);
+        
+        const marcatoriAndataHtml = p.andata.marcatori 
+          ? `<span class="marcatori">⚽ ${p.andata.marcatori}</span>` : '';
+        const marcatoriRitornoHtml = p.ritorno.marcatori 
+          ? `<span class="marcatori">⚽ ${p.ritorno.marcatori}</span>` : '';
+        
+        return `
+          <tr>
+            <td>${p.giornata}</td>
+            <td style="text-align:left;"><strong>${nomeNostro} - ${p.avversario}</strong></td>
+            <td>
+              <span class="${andataClass}">${p.andata.gf}-${p.andata.gs}</span>
+              ${marcatoriAndataHtml}
+            </td>
+            <td>
+              <span class="${ritornoClass}">${p.ritorno.gf}-${p.ritorno.gs}</span>
+              ${marcatoriRitornoHtml}
+            </td>
+            <td><strong>${punti}</strong></td>
+          </tr>
+        `;
+      }).join('');
+      
+      renderStatsCalendario(stagione);
+    }
+
+    function renderStatsCalendario(stagione) {
+      const partite = data.partite[stagione];
+      const nomeNostro = getNomeSquadra(stagione);
+      const stats = {
+        giocate: partite.length * 2,
+        vinte: 0,
+        pareggiate: 0,
+        perse: 0,
+        golFatti: 0,
+        golSubiti: 0,
+        punti: 0
+      };
+      
+      partite.forEach(p => {
+        stats.golFatti += p.andata.gf;
+        stats.golSubiti += p.andata.gs;
+        if (p.andata.gf > p.andata.gs) { stats.vinte++; stats.punti += 3; }
+        else if (p.andata.gf === p.andata.gs) { stats.pareggiate++; stats.punti += 1; }
+        else stats.perse++;
+        
+        stats.golFatti += p.ritorno.gf;
+        stats.golSubiti += p.ritorno.gs;
+        if (p.ritorno.gf > p.ritorno.gs) { stats.vinte++; stats.punti += 3; }
+        else if (p.ritorno.gf === p.ritorno.gs) { stats.pareggiate++; stats.punti += 1; }
+        else stats.perse++;
+      });
+      
+      document.getElementById(`statsCalendario-${stagione}`).innerHTML = `
+        <h3>📊 Statistiche Stagione ${stagione} - ${nomeNostro}</h3>
+        <p>🎯 Partite giocate: <strong>${stats.giocate}</strong></p>
+        <p>✅ Vittorie: <strong>${stats.vinte}</strong></p>
+        <p>🤝 Pareggi: <strong>${stats.pareggiate}</strong></p>
+        <p>❌ Sconfitte: <strong>${stats.perse}</strong></p>
+        <p>⚽ Gol fatti: <strong>${stats.golFatti}</strong></p>
+        <p>🥅 Gol subiti: <strong>${stats.golSubiti}</strong></p>
+        <p>🏆 Punti totali: <strong>${stats.punti}</strong></p>
+      `;
+    }
+
+    function renderNote(stagione) {
+      const display = document.getElementById(`noteDisplay-${stagione}`);
+      const nota = data.note[stagione] || '';
+      
+      if (nota.trim()) {
+        display.innerHTML = `
+          <div class="note-box">
+            <h4>Note Stagione ${stagione}</h4>
+            <div class="note-display">${escapeHtml(nota)}</div>
+          </div>
+        `;
+      } else {
+        display.innerHTML = '';
+      }
+    }
+    
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // ===== RIEPILOGO GIOCATORI =====
+    function switchGiocatoriView(mode, btn) {
+      giocatoriViewMode = mode;
+      btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderGiocatoriTotali();
+    }
+    
+    function getGiocatoriPerView() {
+      if (giocatoriViewMode === 'totale') {
+        const map = {};
+        STAGIONI.forEach(stagione => {
+          data.giocatori[stagione].forEach(g => {
+            const key = g.nome.trim().toLowerCase();
+            if (!map[key]) {
+              map[key] = {
+                nome: g.nome,
+                ruolo: g.ruolo,
+                presenze: 0,
+                gol: 0,
+                ammonizioni: 0,
+                espulsioni: 0,
+                stagioni: [],
+                numeri: []
+              };
+            }
+            map[key].presenze += g.pres;
+            map[key].gol += g.gol;
+            map[key].ammonizioni += (g.ammonizioni || 0);
+            map[key].espulsioni += (g.espulsioni || 0);
+            if (!map[key].stagioni.includes(stagione)) map[key].stagioni.push(stagione);
+            if (g.num && !map[key].numeri.includes(g.num)) map[key].numeri.push(g.num);
+          });
+        });
+        return Object.values(map);
+      } else {
+        return data.giocatori[giocatoriViewMode].map(g => ({
+          nome: g.nome,
+          ruolo: g.ruolo,
+          presenze: g.pres,
+          gol: g.gol,
+          ammonizioni: g.ammonizioni || 0,
+          espulsioni: g.espulsioni || 0,
+          stagioni: [giocatoriViewMode],
+          numeri: g.num ? [g.num] : []
+        }));
+      }
+    }
+
+    function sortGiocatori(by, btn) {
+      currentSort = by;
+      document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderGiocatoriTotali();
+    }
+
+    function renderGiocatoriTotali() {
+      const body = document.getElementById('giocatoriBody');
+      const giocatori = getGiocatoriPerView();
+      const sorted = [...giocatori];
+      
+      const thStagioni = document.getElementById('thStagioni');
+      if (giocatoriViewMode === 'totale') {
+        thStagioni.textContent = 'Stagioni';
+      } else {
+        thStagioni.textContent = 'N°';
+      }
+      
+      if (currentSort === 'gol') sorted.sort((a, b) => b.gol - a.gol);
+      else if (currentSort === 'presenze') sorted.sort((a, b) => b.presenze - a.presenze);
+      else if (currentSort === 'nome') sorted.sort((a, b) => a.nome.localeCompare(b.nome));
+      else if (currentSort === 'ammonizioni') sorted.sort((a, b) => b.ammonizioni - a.ammonizioni);
+      else if (currentSort === 'espulsioni') sorted.sort((a, b) => b.espulsioni - a.espulsioni);
+      
+      body.innerHTML = sorted.map((g, i) => {
+        const media = g.presenze > 0 ? (g.gol / g.presenze).toFixed(2) : '0.00';
+        const medal = (currentSort === 'gol' || currentSort === 'presenze' || currentSort === 'ammonizioni' || currentSort === 'espulsioni') && i < 3 
+          ? ['🥇','🥈','🥉'][i] : (i + 1);
+        
+        let primaColonna;
+        if (giocatoriViewMode === 'totale') {
+          const stagioniStr = g.stagioni.map(s => {
+            const nome = getNomeSquadra(s);
+            return `${s.replace('20', "'")} (${nome})`;
+          }).join(', ');
+          primaColonna = `${stagioniStr}<br><small style="color:#778da9">(${g.stagioni.length})</small>`;
         } else {
-            rawScores.push({ num: i, score: score, isRit: false });
+          const numStr = g.numeri.length ? `#${g.numeri[0]}` : '-';
+          primaColonna = numStr;
         }
+        
+        return `
+          <tr>
+            <td>${medal}</td>
+            <td><strong>${g.nome}</strong></td>
+            <td>${g.ruolo}</td>
+            <td>${primaColonna}</td>
+            <td><strong>${g.presenze}</strong></td>
+            <td><strong>${g.gol}</strong></td>
+            <td class="col-giallo">${g.ammonizioni}</td>
+            <td class="col-rosso">${g.espulsioni}</td>
+            <td>${media}</td>
+          </tr>
+        `;
+      }).join('');
+      
+      const totPres = giocatori.reduce((s, g) => s + g.presenze, 0);
+      const totGol = giocatori.reduce((s, g) => s + g.gol, 0);
+      const totAmm = giocatori.reduce((s, g) => s + g.ammonizioni, 0);
+      const totEsp = giocatori.reduce((s, g) => s + g.espulsioni, 0);
+      
+      let titoloRiepilogo;
+      let extraInfo = '';
+      
+      if (giocatoriViewMode === 'totale') {
+        titoloRiepilogo = '📈 Riepilogo Totale 2004-2007';
+        const capocannoniere = giocatori.length ? sorted.find(g => g.gol === Math.max(...giocatori.map(x => x.gol))) : null;
+        const piuPresente = giocatori.length ? sorted.find(g => g.presenze === Math.max(...giocatori.map(x => x.presenze))) : null;
+        const veterano = giocatori.length ? sorted.find(g => g.stagioni.length === Math.max(...giocatori.map(x => x.stagioni.length))) : null;
+        
+        if (capocannoniere) extraInfo += `<p>🥇 Capocannoniere storico: <strong>${capocannoniere.nome}</strong> (${capocannoniere.gol} gol)</p>`;
+        if (piuPresente) extraInfo += `<p>🏃 Più presente: <strong>${piuPresente.nome}</strong> (${piuPresente.presenze} presenze)</p>`;
+        if (veterano && veterano.stagioni.length > 1) extraInfo += `<p>🎖️ Veterano: <strong>${veterano.nome}</strong> (${veterano.stagioni.length} stagioni)</p>`;
+      } else {
+        const nomeSquadra = getNomeSquadra(giocatoriViewMode);
+        titoloRiepilogo = `📈 Riepilogo Stagione ${giocatoriViewMode} - ${nomeSquadra}`;
+        const capocannoniere = giocatori.length ? sorted.find(g => g.gol === Math.max(...giocatori.map(x => x.gol))) : null;
+        const piuPresente = giocatori.length ? sorted.find(g => g.presenze === Math.max(...giocatori.map(x => x.presenze))) : null;
+        const piuAmmonito = giocatori.length ? sorted.find(g => g.ammonizioni === Math.max(...giocatori.map(x => x.ammonizioni))) : null;
+        
+        if (capocannoniere && capocannoniere.gol > 0) extraInfo += `<p>🥇 Capocannoniere stagione: <strong>${capocannoniere.nome}</strong> (${capocannoniere.gol} gol)</p>`;
+        if (piuPresente) extraInfo += `<p>🏃 Più presente: <strong>${piuPresente.nome}</strong> (${piuPresente.presenze} presenze)</p>`;
+        if (piuAmmonito && piuAmmonito.ammonizioni > 0) extraInfo += `<p>🟨 Più ammonito: <strong>${piuAmmonito.nome}</strong> (${piuAmmonito.ammonizioni})</p>`;
+      }
+      
+      document.getElementById('riepilogo').innerHTML = `
+        <h3>${titoloRiepilogo}</h3>
+        <p>👥 Giocatori: <strong>${giocatori.length}</strong></p>
+        <p>👕 Presenze totali: <strong>${totPres}</strong></p>
+        <p>⚽ Gol totali: <strong>${totGol}</strong></p>
+        <p>🟨 Ammonizioni totali: <strong>${totAmm}</strong></p>
+        <p>🟥 Espulsioni totali: <strong>${totEsp}</strong></p>
+        ${extraInfo}
+      `;
     }
 
-    let survivors = rawScores.filter(r => !r.isRit);
-    if(survivors.length > 0 && massToRedistribute > 0) {
-        let totalSurvivorScore = survivors.reduce((sum, s) => sum + Math.max(0, s.score), 0);
-        survivors.forEach(s => {
-            if(totalSurvivorScore > 0) {
-                let proportion = Math.max(0, s.score) / totalSurvivorScore;
-                s.score += (massToRedistribute * proportion);
-            } else {
-                s.score += (massToRedistribute / survivors.length);
-            }
-        });
-    }
-    return survivors.sort((a,b) => b.score - a.score);
-}
-
-function runBacktest() {
-    playQuantumSound('click');
-    document.getElementById("btnCalcola").style.background="#00e676";
-    var q=parseInt(document.getElementById("testMode").value), m=document.getElementById("methodSelect").value, dati=getDati();
-    var nP = parseInt(document.getElementById("nextPartenti").value);
-    var targetIpp = document.getElementById("nextIppodromo").value.trim().toUpperCase();
-    var nextRit = document.getElementById("nextRitirati").value.split(/[\s,-]+/).map(Number).filter(n=>!isNaN(n));
-    
-    let scGen = getQuantumScores(nP, nextRit, dati, m);
-    var pronGen = scGen.slice(0,q);
-    let scPenta = getQuantumScores(nP, nextRit, dati, "pentagold");
-    let scOracle = getQuantumScores(nP, nextRit, dati, "uk_oracle");
-    
-    let baseFreq = scPenta[0].num;
-    let baseMat = scOracle[0].num;
-    if(baseFreq === baseMat) baseMat = (scOracle[1] ? scOracle[1].num : baseMat);
-    
-    let meta = Math.round(nP / 2);
-    let dispGen = scGen.map(s => s.num);
-    let jolly = [...dispGen].sort((a,b) => Math.abs(a - meta) - Math.abs(b - meta))[0];
-
-    let bussolaText = "";
-    if(targetIpp !== "") {
-        let metodi = ["pentagold", "uk_oracle", "uk_overkill", "uk_domination", "uk_god", "quantum", "radar", "fuoco", "specchio"];
-        let bestM = ""; let bestP = -1;
-        metodi.forEach(met => {
-            let winI = 0; let countI = 0;
-            for(let i=0; i < dati.length-1; i++) {
-                if(dati[i].ipp.toUpperCase() === targetIpp) {
-                    countI++;
-                    let storico = dati.slice(i+1);
-                    let ritList = dati[i].rit ? dati[i].rit.split(/[\s,-]+/).map(Number).filter(n=>!isNaN(n)) : [];
-                    let gScores = getQuantumScores(parseInt(dati[i].part), ritList, storico, met);
-                    if(gScores.slice(0,q).map(s=>s.num).filter(n=>dati[i].arr.split(/[\s,-]+/).map(Number).slice(0,3).includes(n)).length > 0) winI++;
-                }
-            }
-            let perc = countI > 0 ? (winI/countI) : 0;
-            if(perc > bestP) { bestP = perc; bestM = met; }
-        });
-        if(bestP > 0) bussolaText = `<span class="bussola-text">➔ ${bestM.toUpperCase().replace('_','-')}</span>`;
+    // ===== INIT =====
+    function renderAll() {
+      STAGIONI.forEach(s => {
+        renderClassifica(s);
+        renderRosa(s);
+        renderCalendario(s);
+      });
+      renderGiocatoriTotali();
     }
 
-    let pronHTML = pronGen.map((p) => {
-        let perc = Math.min(Math.round((p.score / 150) * 100), 100);
-        if(perc < 0) perc = 5;
-        let color = perc > 70 ? '#ffcc00' : (perc > 40 ? '#00e676' : '#00bfff');
-        return `${p.num}<sub style="font-size:9px; color:${color}; margin-left:2px;">${perc}%</sub>`;
-    }).join(' - ');
-
-    // --- FASE 2: SOSTITUZIONE ELITE DUO CROSS-OVER ---
-    document.getElementById("stickyForecastBox").innerHTML = `
-        <div class="cross-over-box">
-            <div class="small-label" style="color:#00e676; font-weight:bold;"> ‼️ÉLITE DUO CROSS-OVER </div>
-            <div style="font-size:20px; font-weight:bold;"><span style="color:#ffcc00;">${baseFreq}</span> - <span style="color:#00bfff;">${baseMat}</span>${bussolaText}</div>
-            <div class="gold-advice">
-                <b>🔷COPPIA TOP:</b> ${baseFreq}-${baseMat} | <b> 🔷RECUPERO:</b> ${baseFreq}-${jolly}
-            </div>
-        </div>
-        <div class="next-row">
-            <div class="small-label" style="color:#ffcc00;">🎫 PRONOSTICO ${m.toUpperCase()}:</div>
-            <div style="font-size:20px; font-weight:bold; color:#fff;">${pronHTML}</div>
-        </div>`;
-
-    btDataCache = [];
-    var winGen=0, winIpp=0, countIpp=0;
-    var testLimit = Math.max(0, dati.length - 1); 
-    let tempCache = [];
-
-    for(let i=0; i < testLimit; i++) {
-        let gara = dati[i], storico = dati.slice(i+1);
-        if(storico.length === 0) continue;
-        let arrP = gara.arr.split(/[\s,-]+/).map(Number).slice(0,3);
-        let arrExtra = gara.arr.split(/[\s,-]+/).map(Number).slice(3,5);
-        let ritList = gara.rit ? gara.rit.split(/[\s,-]+/).map(Number).filter(n=>!isNaN(n)) : [];
-        let gScores = getQuantumScores(parseInt(gara.part), ritList, storico, m);
-        let prev = gScores.slice(0,q).map(s => s.num);
-        let hit = prev.filter(n=>arrP.includes(n)), isWin = hit.length>0;
-        if(isWin) { winGen++; }
-        let currentPerc = Math.round((winGen / (i + 1)) * 100);
-        if(targetIpp !== "" && gara.ipp.toUpperCase() === targetIpp) { countIpp++; if(isWin) winIpp++; }
-        tempCache.push({ gara, arrP, arrExtra, prev, hit, isWin, progPerc: currentPerc });
-    }
-    btDataCache = tempCache; 
-    const pGen = testLimit > 0 ? (winGen/testLimit)*100 : 0;
-    document.getElementById("precGen").innerText = pGen.toFixed(0) + "%";
-    document.getElementById("precIpp").innerText = countIpp > 0 ? ((winIpp/countIpp)*100).toFixed(0) + "%" : "--%";
-    document.getElementById("precCiclo").innerText = testLimit > 0 ? "98%" : "--%";
-    if (pGen > 70) playQuantumSound('gold');
-    btPage = 1; renderBTList();
-}
-
-function renderBTList() {
-    const startIndex = (btPage - 1) * btRowsPerPage;
-    const paginatedBT = btDataCache.slice(startIndex, startIndex + btRowsPerPage);
-    const totalBTPage = Math.ceil(btDataCache.length / btRowsPerPage);
-    let listHTML = "";
-    paginatedBT.forEach(item => {
-        let tuttiUsciti = item.arrP.concat(item.arrExtra); 
-        let pronosticoColorato = item.prev.map(n => {
-            return tuttiUsciti.includes(n) ? `<span class="dynamic-p-hit">${n}</span>` : `<span class="dynamic-p-miss">${n}</span>`;
-        }).join(' ');
-        let pColor = item.progPerc >= 70 ? '#00e676' : (item.progPerc >= 50 ? '#ffcc00' : '#ff5252');
-        listHTML += `<div class="bt-row ${item.isWin?'win-row':'lost-row'}">
-            <div style="width:25%; line-height:1.2; font-size:10px;"><b style="color:#ffcc00">#${item.gara.n}</b><br><span style="font-size:8px; color:#777;">${item.gara.ipp}</span></div>
-            <div style="width:40%; text-align:center; font-family:monospace; font-size:10px; border-left:1px solid #333; border-right:1px solid #333; padding:0 2px;"><span style="display:block; font-size:9px; color:#ffcc00;">PRONOSTICO <span style="color:${pColor}; font-weight:bold;">${item.progPerc}%</span></span>${pronosticoColorato}</div>
-            <div style="width:35%; text-align:center; font-size:9px;"><b>${item.arrP.join('-')}</b><span style="color:#bbb;">-${item.arrExtra.join('-')}</span><div style="font-size:7.5px; color:#00bfff;">P:${item.gara.part} R:${item.gara.rit||'-'}</div></div>
-        </div>`;
-    });
-    document.getElementById("backtestList").innerHTML = listHTML;
-    document.getElementById("btPageIndicator").innerHTML = `ANALISI ${btPage}/${totalBTPage || 1}<br><span style="color:#00bfff; font-size:9px;">(${btDataCache.length} GARE)</span>`;
-    document.getElementById("prevBT").disabled = (btPage === 1);
-    document.getElementById("nextBT").disabled = (btPage === totalBTPage || totalBTPage === 0);
-}
-
-function changeBTPage(step) { btPage += step; renderBTList(); }
-function changePage(step) { currentPage += step; renderTable(); }
-function updateIppodromoMenu() {
-    const dati = getDati(); const select = document.getElementById("nextIppodromo");
-    const ippodromiUnici = [...new Set(dati.map(g => g.ipp.toUpperCase()))].sort();
-    let options = '<option value="">🔅IPPODROMO🔆</option>';
-    ippodromiUnici.forEach(ipp => { options += `<option value="${ipp}">${ipp}</option>`; });
-    select.innerHTML = options;
-}
-
-// --- FASE 3: CORREZIONE INDICE STARTINDEX + INDEX ---
-function renderTable() { 
-    const dati = getDati(); const startIndex = (currentPage - 1) * rowsPerPage;
-    const paginatedData = dati.slice(startIndex, startIndex + rowsPerPage);
-    const totalPages = Math.ceil(dati.length / rowsPerPage);
-    document.getElementById("headerCount").innerHTML = `<span class="counter-badge">Gare: ${dati.length}</span>N-IPP`;
-    document.getElementById("mainBody").innerHTML = paginatedData.map((g, index) => {
-        return `<tr><td><b style="color:#ffcc00">#${g.n}</b><br>${g.ipp}</td><td>P: ${g.part}<br><span style="color:#ffcc00">R: ${g.rit||'-'}</span></td><td>${g.arr}</td><td><span class="action-btn" onclick="editRace(${startIndex + index})">✏️</span></td></tr>`;
-    }).join(""); 
-    document.getElementById("pageIndicator").innerText = `PAG. ${currentPage}/${totalPages}`;
-    document.getElementById("prevPage").disabled = (currentPage === 1); document.getElementById("nextPage").disabled = (currentPage === totalPages);
-}
-
-function editRace(index) {
-    let d = getDati(); let g = d[index]; editingIndex = index;
-    document.getElementById("add_numero").value = g.n; document.getElementById("add_ipp").value = g.ipp;
-    document.getElementById("add_part").value = g.part; document.getElementById("add_rit").value = g.rit;
-    document.getElementById("add_arr").value = g.arr; document.getElementById("addRacePanel").style.display = "block";
-}
-function openAddRace() { editingIndex = -1; document.getElementById("addRacePanel").style.display="block"; }
-function confirmAddRace() { 
-    var n=document.getElementById("add_numero").value, a=document.getElementById("add_arr").value, d=getDati(); if(!n||!a) return; 
-    let newRace = {n:n, ipp:document.getElementById("add_ipp").value.toUpperCase(), part:document.getElementById("add_part").value, rit:document.getElementById("add_rit").value, arr:a};
-    if(editingIndex > -1) { d[editingIndex] = newRace; } else { d.unshift(newRace); }
-    localStorage.setItem("tris_archive", JSON.stringify(d)); location.reload(); 
-}
-function exportArchive() { var t=document.createElement('textarea'); t.value=JSON.stringify(getDati()); document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); alert("ARCHIVIO COPIATO!"); }
-function importArchive() { var s=prompt("Incolla qui l'archivio:"); if(s){localStorage.setItem("tris_archive",s);location.reload();} }
-function deleteRace(index) { let d=getDati(); d.splice(index,1); localStorage.setItem("tris_archive", JSON.stringify(d)); location.reload(); }
-function markNeedsUpdate() { document.getElementById("btnCalcola").style.background="#ffcc00"; }
-
-window.onload = function() { renderTable(); updateIppodromoMenu(); runBacktest(); };
-</script>
-
-<div id="addRacePanel" style="display:none; background:#222; padding:20px; border-radius:15px; border: 1px solid #ffcc00; position:fixed; top:10%; left:5%; width:80%; z-index:1000;">
-    <h3>Aggiungi/Modifica Gara</h3>
-    <input id="add_numero" type="number" placeholder="N. Gara">
-    <input id="add_ipp" type="text" placeholder="Ippodromo">
-    <input id="add_part" type="number" placeholder="Partenti" value="15">
-    <input id="add_rit" type="text" placeholder="Ritirati">
-    <input id="add_arr" type="text" placeholder="Arrivo (es: 1 2 3 4 5)">
-    <button onclick="confirmAddRace()" style="background:#00e676; width:100%; padding:15px; border-radius:10px; border:none; font-weight:bold;">SALVA</button>
-    <button onclick="document.getElementById('addRacePanel').style.display='none'" style="background:#444; color:#fff; width:100%; margin-top:10px; border:none; padding:10px; border-radius:10px;">CHIUDI</button>
-    <button onclick="if(editingIndex>-1) deleteRace(editingIndex)" style="background:#f44336; color:#fff; width:100%; margin-top:10px; border:none; padding:10px; border-radius:10px; font-size: 10px;">ELIMINA</button>
-</div>
+    renderAll();
+  </script>
 </body>
 </html>
-🥇🥇🏇🏇🏇DEFINITIVO BY PIER 🏇🏇🏇🥇🥇
